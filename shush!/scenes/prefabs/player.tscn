@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://8fjuq15dguxf"]
+
+[ext_resource type="Script" uid="uid://b1hktnhobd6gy" path="res://scripts/character_controller/player/player.gd" id="1_8cdkg"]
+[ext_resource type="Texture2D" uid="uid://btq3od6fqf2l3" path="res://icon.svg" id="1_n0leu"]
+[ext_resource type="PackedScene" uid="uid://dl3jxaxpv8ksl" path="res://scenes/prefabs/systems/state_machine.tscn" id="1_tou0u"]
+[ext_resource type="Script" uid="uid://cgwpvmu3mjc2k" path="res://scripts/state-machine/state.gd" id="2_n0leu"]
+[ext_resource type="AnimationLibrary" uid="uid://i4oejewn1nxt" path="res://animations/enemy_seal.res" id="3_r053x"]
+[ext_resource type="Script" uid="uid://c5y4fnirekxr" path="res://scripts/character_controller/player/idle_state.gd" id="4_6o77n"]
+[ext_resource type="AnimationLibrary" uid="uid://br78rsigvu0ki" path="res://animations/player_walrus.res" id="4_jybep"]
+[ext_resource type="Script" uid="uid://bg6st1f16bocd" path="res://scripts/character_controller/player/move_state.gd" id="5_6v0jn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tou0u"]
+size = Vector2(126, 126)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_8cdkg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_n0leu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tou0u")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"enemy_seal": ExtResource("3_r053x"),
+&"player_walrus": ExtResource("4_jybep")
+}
+autoplay = "player_walrus/idle"
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state", "states") instance=ExtResource("1_tou0u")]
+initial_state = NodePath("Idle")
+states = {
+"Idle": NodePath("Idle"),
+"Moving": NodePath("Moving"),
+"ShushAttack": NodePath("ShushAttack"),
+"Special": NodePath("Special")
+}
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_6o77n")
+
+[node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource("5_6v0jn")
+speed = 300.0
+jump_force = -400.0
+
+[node name="ShushAttack" type="Node" parent="StateMachine"]
+script = ExtResource("2_n0leu")
+
+[node name="Special" type="Node" parent="StateMachine"]
+script = ExtResource("2_n0leu")

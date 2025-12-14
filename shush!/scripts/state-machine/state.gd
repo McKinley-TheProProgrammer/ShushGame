@@ -6,7 +6,7 @@ class_name State extends Node
 ## The Owner of this state
 var stateholder
 var state_name
-var state_machine
+var state_machine : StateMachine
 
 signal on_state_entered(stateType)
 signal on_state_exited(stateType)

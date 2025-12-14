@@ -1,3 +1,18 @@
-[gd_scene format=3 uid="uid://ct0lugt6a6syu"]
+[gd_scene load_steps=3 format=3 uid="uid://ct0lugt6a6syu"]
+
+[ext_resource type="PackedScene" uid="uid://8fjuq15dguxf" path="res://scenes/prefabs/player.tscn" id="1_gmq1x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jycyf"]
+size = Vector2(1415, 20)
 
 [node name="LevelSandbox" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(21, 611)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(483.5, 0)
+shape = SubResource("RectangleShape2D_jycyf")
+
+[node name="Player" parent="." instance=ExtResource("1_gmq1x")]
+position = Vector2(430, 155)
