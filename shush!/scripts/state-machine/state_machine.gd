@@ -13,6 +13,8 @@ func _ready() -> void:
 			state.state_machine = self
 			state.stateholder = owner
 			state.state_name = state.name
+	
+	change_state(initial_state, owner)
 
 ## Changes the State and passes the reference to the Object that is using it
 func change_state(new_state : State, node_obj) -> void:

@@ -19,5 +19,14 @@ func physics_process(delta: float) -> void:
 		body.velocity.x = direction * speed
 	else:
 		body.velocity.x = move_toward(body.velocity.x, 0, speed)
+		state_machine.change_state_by_name("Idle",stateholder)
 
+	# HANDLE Flipping
+	if direction > 0:
+		body.scale.x = 1
+	elif direction < 0:
+		body.scale.x = -1
+	print(direction)
 	body.move_and_slide()
+
+	

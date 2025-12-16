@@ -4,7 +4,7 @@ class_name Player extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("move_left") || Input.is_action_pressed("move_right"):
-		state_machine.change_state_by_name("Moving", self)
-	elif (not Input.is_action_pressed("move_left") || Input.is_action_pressed("move_right")):
+	if Input.is_action_just_pressed("shush_attack"):
+		state_machine.change_state_by_name("ShushAttack", self)
+	elif Input.is_action_just_released("shush_attack"):
 		state_machine.change_state_by_name("Idle", self)
