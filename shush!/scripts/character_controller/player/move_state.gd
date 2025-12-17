@@ -3,6 +3,10 @@ extends State
 @export var speed : float = 10.0
 @export var jump_force : float = -10.0
 
+@export var sprite2D : Sprite2D
+@export var attack_box : Area2D
+
+
 func physics_process(delta: float) -> void:
 	var body = stateholder as CharacterBody2D
 	if not body.is_on_floor():
@@ -22,11 +26,10 @@ func physics_process(delta: float) -> void:
 		state_machine.change_state_by_name("Idle",stateholder)
 
 	# HANDLE Flipping
-	if direction > 0:
-		body.scale.x = 1
-	elif direction < 0:
-		body.scale.x = -1
-	print(direction)
+	if body.velocity.x:
+		sprite2D.flip_h = true if body.velocity.x < 0 else false
+		attack_box.scale.y = -1 if body.velocity.x < 0 else 1
+	
 	body.move_and_slide()
 
 	

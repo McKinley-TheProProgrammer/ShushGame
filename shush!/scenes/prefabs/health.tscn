@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dflx5sv5oxgve"]
+
+[ext_resource type="Script" uid="uid://02q6g16he8ie" path="res://scripts/health.gd" id="1_hp7wj"]
+
+[node name="Health" type="Node"]
+script = ExtResource("1_hp7wj")
+hp_max = 3.0

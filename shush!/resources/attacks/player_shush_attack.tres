@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AttackResource" load_steps=2 format=3 uid="uid://cdq2li7qj12ef"]
+
+[ext_resource type="Script" uid="uid://bhbfc8punv22l" path="res://scripts/resources/attack_resource.gd" id="1_hvitw"]
+
+[resource]
+script = ExtResource("1_hvitw")
+damage = 1.0
+score_bonus = 1.0
+animation_name = &"player_walrus/shush_attack"
+metadata/_custom_type_script = "uid://bhbfc8punv22l"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://8fjuq15dguxf"]
+[gd_scene load_steps=17 format=3 uid="uid://8fjuq15dguxf"]
 
 [ext_resource type="Script" uid="uid://b1hktnhobd6gy" path="res://scripts/character_controller/player/player.gd" id="1_8cdkg"]
 [ext_resource type="Texture2D" uid="uid://btq3od6fqf2l3" path="res://icon.svg" id="1_n0leu"]
@@ -9,6 +9,9 @@
 [ext_resource type="AnimationLibrary" uid="uid://br78rsigvu0ki" path="res://animations/player_walrus.res" id="4_jybep"]
 [ext_resource type="Script" uid="uid://bg6st1f16bocd" path="res://scripts/character_controller/player/move_state.gd" id="5_6v0jn"]
 [ext_resource type="Script" uid="uid://ds83yq6guyk4i" path="res://scripts/character_controller/player/shush_attack.gd" id="8_jybep"]
+[ext_resource type="Resource" uid="uid://cdq2li7qj12ef" path="res://resources/attacks/player_shush_attack.tres" id="9_lagtt"]
+[ext_resource type="Script" uid="uid://02q6g16he8ie" path="res://scripts/health.gd" id="10_oqq3r"]
+[ext_resource type="Script" uid="uid://6pexfg70bojk" path="res://scripts/hitbox.gd" id="11_lagtt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tou0u"]
 size = Vector2(126, 126)
@@ -26,6 +29,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("1_n0leu")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackArea/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_50rl7"]
@@ -66,21 +81,35 @@ states = {
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("4_6o77n")
 
-[node name="Moving" type="Node" parent="StateMachine"]
+[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("sprite2D", "attack_box")]
 script = ExtResource("5_6v0jn")
 speed = 300.0
 jump_force = -400.0
+sprite2D = NodePath("../../Sprite2D")
+attack_box = NodePath("../../AttackArea")
 
-[node name="ShushAttack" type="Node" parent="StateMachine"]
+[node name="ShushAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_box")]
 script = ExtResource("8_jybep")
+attack_resource = ExtResource("9_lagtt")
+attack_box = NodePath("../../AttackArea")
 
 [node name="Special" type="Node" parent="StateMachine"]
 script = ExtResource("2_n0leu")
 
 [node name="AttackArea" type="Area2D" parent="."]
-position = Vector2(201, 0)
 rotation = -1.5707964
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(0, 205)
 shape = SubResource("CapsuleShape2D_jybep")
+disabled = true
 debug_color = Color(0.9943022, 0, 0.2315017, 0.41960785)
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("10_oqq3r")
+hp_max = 3.0
+metadata/_custom_type_script = "uid://02q6g16he8ie"
+
+[node name="Hitbox" type="Node" parent="."]
+script = ExtResource("11_lagtt")
+metadata/_custom_type_script = "uid://6pexfg70bojk"
