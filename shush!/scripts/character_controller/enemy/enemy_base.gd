@@ -1,11 +1,12 @@
 class_name EnemyBase extends CharacterBody2D
 
+@export var attack_resource : AttackResource
+
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-func on_damage(amount: float) -> void:
-	pass
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -16,3 +17,8 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 
 	move_and_slide()
+
+
+func _on_health_damaged(hp: float, atk_res: AttackResource) -> void:
+	print("Damaged")
+	

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ct0lugt6a6syu"]
+[gd_scene load_steps=4 format=3 uid="uid://ct0lugt6a6syu"]
 
 [ext_resource type="PackedScene" uid="uid://8fjuq15dguxf" path="res://scenes/prefabs/player.tscn" id="1_gmq1x"]
+[ext_resource type="PackedScene" uid="uid://hhgo51mqm818" path="res://scenes/enemy_base.tscn" id="2_p8d2b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jycyf"]
 size = Vector2(1415, 20)
@@ -16,3 +17,6 @@ shape = SubResource("RectangleShape2D_jycyf")
 
 [node name="Player" parent="." instance=ExtResource("1_gmq1x")]
 position = Vector2(430, 155)
+
+[node name="EnemyBase" parent="." instance=ExtResource("2_p8d2b")]
+position = Vector2(889, 321)

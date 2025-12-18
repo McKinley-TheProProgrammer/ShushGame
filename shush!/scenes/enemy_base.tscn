@@ -1,6 +1,48 @@
-[gd_scene load_steps=2 format=3 uid="uid://hhgo51mqm818"]
+[gd_scene load_steps=8 format=3 uid="uid://hhgo51mqm818"]
 
-[ext_resource type="Script" uid="uid://bf88hqaqgk0gx" path="res://scenes/enemy_base.gd" id="1_fr7lv"]
+[ext_resource type="Script" uid="uid://bf88hqaqgk0gx" path="res://scripts/character_controller/enemy/enemy_base.gd" id="1_fr7lv"]
+[ext_resource type="Script" uid="uid://6pexfg70bojk" path="res://scripts/hitbox.gd" id="2_sw0xa"]
+[ext_resource type="Script" uid="uid://02q6g16he8ie" path="res://scripts/health.gd" id="3_j1ss0"]
+
+[sub_resource type="Gradient" id="Gradient_sw0xa"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j1ss0"]
+gradient = SubResource("Gradient_sw0xa")
+fill = 1
+fill_from = Vector2(0.46581197, 0.491453)
+repeat = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fr7lv"]
+size = Vector2(74, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sw0xa"]
+size = Vector2(30, 42)
 
 [node name="EnemyBase" type="CharacterBody2D"]
 script = ExtResource("1_fr7lv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_j1ss0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fr7lv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Hitbox" type="Node" parent="."]
+script = ExtResource("2_sw0xa")
+metadata/_custom_type_script = "uid://6pexfg70bojk"
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_j1ss0")
+hp_max = 1.0
+metadata/_custom_type_script = "uid://02q6g16he8ie"
+
+[node name="AttackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(15, 0)
+shape = SubResource("RectangleShape2D_sw0xa")
+debug_color = Color(0.8825019, 0.0003405732, 0.81759846, 0.41960785)
+
+[connection signal="on_damaged" from="Health" to="." method="_on_health_damaged"]
